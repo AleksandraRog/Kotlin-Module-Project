@@ -9,7 +9,7 @@ open class ChangeScreen(val tipe: Menu) {
         |$str""".trimMargin()
 
     private var menuPointNew : String = " || Добавить новый архив '1'"
-    private var menuPointChoice : String = "Просмотр архива по номеру  (1..999) '2'|| "
+    private var menuPointChoice : String = " || Просмотр архива по номеру  (1..999) '2'"
 
     private var dataList : ArrayList<Menu> = arrayListOf()
 
@@ -17,7 +17,7 @@ open class ChangeScreen(val tipe: Menu) {
         when (tipe) {
             is Menu.Arh -> {
                 menuPointNew = " || Добавить новую заметку '1'"
-                menuPointChoice = "Просмотр заметки по номеру (1..999) '2'|| "
+                menuPointChoice = " || Просмотр заметки по номеру (1..999) '2'"
                 dataList.addAll(Menu.Note.listNotes.filter { element -> element.greatTipe == tipe})
             }
             is Menu.Note -> {
@@ -40,7 +40,7 @@ open class ChangeScreen(val tipe: Menu) {
 
         println("""$str
         |МЕНЮ
-        |${menuPointChoice.replace("1..999", "1..$listSize")}Выход '0'$menuPointNew
+        |Выход '0'$menuPointNew${menuPointChoice.replace("1..999", "1..$listSize")}
         |$str""".trimMargin())
     }
 
@@ -123,15 +123,13 @@ class  MakeScreen(tipe: Menu) : ChangeScreen(tipe){
         do{
             println("Введи имя (имя не должно иметь пустое значение): ")
             name = Scanner(System.`in`).nextLine()
-         //   val nameChecker = name
         } while(name.replace(" ","") == "")
 
         if (tipe is Menu.Arh) {
             do {
                 println("Введи текст заметки (содержание заметки не должно быть пустым):")
                 text = Scanner(System.`in`).nextLine()
-                val textChecker = text
-            } while (textChecker.replace(" ","") == "")
+            } while (text.replace(" ","") == "")
 
             println("""Заметка имя: '$name'
             |Содержание заметки: '$text'""".trimMargin())
